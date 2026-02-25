@@ -2,15 +2,51 @@
 
 A collection of AI agent skills focused on marketing tasks. Built for technical marketers and founders who want Claude Code (or similar AI coding assistants) to help with conversion optimization, copywriting, SEO, analytics, and growth engineering.
 
-Built by [Corey Haines](https://corey.co?ref=marketingskills). Need hands-on help? Check out [Conversion Factory](https://conversionfactory.co?ref=marketingskills) — Corey's agency for conversion optimization, landing pages, and growth strategy. Want to learn more about marketing? Subscribe to [Swipe Files](https://swipefiles.com?ref=marketingskills).
+Built by [Corey Haines](https://corey.co?ref=marketingskills). Need hands-on help? Check out [Conversion Factory](https://conversionfactory.co?ref=marketingskills) — Corey's agency for conversion optimization, landing pages, and growth strategy. Want to learn more about marketing? Subscribe to [Swipe Files](https://swipefiles.com?ref=marketingskills). Want an autonomous AI agent that uses these skills to be your CMO? Try [Magister](https://magistermarketing.com?ref=marketingskills).
 
 New to the terminal and coding agents? Check out the companion guide [Coding for Marketers](https://codingformarketers.com?ref=marketingskills).
 
 **Contributions welcome!** Found a way to improve a skill or have a new one to add? [Open a PR](#contributing).
 
+Run into a problem or have a question? [Open an issue](https://github.com/coreyhaines31/marketingskills/issues) — we're happy to help.
+
 ## What are Skills?
 
 Skills are markdown files that give AI agents specialized knowledge and workflows for specific tasks. When you add these to your project, Claude Code can recognize when you're working on a marketing task and apply the right frameworks and best practices.
+
+## How Skills Work Together
+
+Skills reference each other and build on shared context. The `product-marketing-context` skill is the foundation — every other skill checks it first to understand your product, audience, and positioning before doing anything.
+
+```
+                          ┌──────────────────────────────────────┐
+                          │      product-marketing-context       │
+                          │    (read by all other skills first)  │
+                          └──────────────────┬───────────────────┘
+                                             │
+    ┌─────────────┬────────────┬─────────────┼────────────┬─────────────┬──────────────┐
+    ▼             ▼            ▼             ▼            ▼             ▼              ▼
+┌────────┐ ┌──────────┐ ┌──────────┐ ┌───────────┐ ┌──────────┐ ┌──────────┐ ┌───────────┐
+│SEO &   │ │   CRO    │ │Content & │ │  Paid &   │ │ Growth & │ │Sales &   │ │ Strategy  │
+│Content │ │          │ │  Copy    │ │Measuremnt│ │Retention │ │  GTM     │ │           │
+├────────┤ ├──────────┤ ├──────────┤ ├───────────┤ ├──────────┤ ├──────────┤ ├───────────┤
+│seo-    │ │page-cro  │ │copywritng│ │paid-ads   │ │referral  │ │revops    │ │mktg-ideas │
+│ audit  │ │signup-cro│ │copy-edit │ │ad-creative│ │free-tool │ │sales-    │ │mktg-psych │
+│ai-seo  │ │onboard   │ │cold-emal │ │ab-test   │ │churn-    │ │ enable   │ │           │
+│programm│ │form-cro  │ │email-seq │ │analytics  │ │ prevent  │ │launch    │ │           │
+│schema  │ │popup-cro │ │social    │ │           │ │          │ │pricing   │ │           │
+│content │ │paywall   │ │          │ │           │ │          │ │competitr │ │           │
+└───┬────┘ └────┬─────┘ └────┬─────┘ └─────┬─────┘ └────┬─────┘ └────┬─────┘ └─────┬─────┘
+    │           │            │             │            │             │              │
+    └───────────┴─────┬──────┴─────────────┴────────────┴─────────────┴──────────────┘
+                      │
+       Skills cross-reference each other:
+         copywriting ↔ page-cro ↔ ab-test-setup
+         revops ↔ sales-enablement ↔ cold-email
+         seo-audit ↔ schema-markup ↔ ai-seo
+```
+
+See each skill's **Related Skills** section for the full dependency map.
 
 ## Available Skills
 
@@ -18,7 +54,10 @@ Skills are markdown files that give AI agents specialized knowledge and workflow
 | Skill | Description |
 |-------|-------------|
 | [ab-test-setup](skills/ab-test-setup/) | When the user wants to plan, design, or implement an A/B test or experiment. Also use when the user mentions "A/B... |
+| [ad-creative](skills/ad-creative/) | When the user wants to generate, iterate, or scale ad creative — headlines, descriptions, primary text, or full ad... |
+| [ai-seo](skills/ai-seo/) | When the user wants to optimize content for AI search engines, get cited by LLMs, or appear in AI-generated answers.... |
 | [analytics-tracking](skills/analytics-tracking/) | When the user wants to set up, improve, or audit analytics tracking and measurement. Also use when the user mentions... |
+| [churn-prevention](skills/churn-prevention/) | When the user wants to reduce churn, build cancellation flows, set up save offers, recover failed payments, or... |
 | [cold-email](skills/cold-email/) | Write B2B cold emails and follow-up sequences that get replies. Use when the user wants to write cold outreach emails,... |
 | [competitor-alternatives](skills/competitor-alternatives/) | When the user wants to create competitor comparison or alternative pages for SEO and sales enablement. Also use when... |
 | [content-strategy](skills/content-strategy/) | When the user wants to plan a content strategy, decide what content to create, or figure out what topics to cover. Also... |
@@ -161,17 +200,22 @@ You can also invoke skills directly:
 
 ### SEO & Discovery
 - `seo-audit` - Technical and on-page SEO
+- `ai-seo` - AI search optimization (AEO, GEO, LLMO)
 - `programmatic-seo` - Scaled page generation
 - `competitor-alternatives` - Comparison and alternative pages
 - `schema-markup` - Structured data
 
 ### Paid & Distribution
 - `paid-ads` - Google, Meta, LinkedIn ad campaigns
+- `ad-creative` - Bulk ad creative generation and iteration
 - `social-content` - Social media scheduling and strategy
 
 ### Measurement & Testing
 - `analytics-tracking` - Event tracking setup
 - `ab-test-setup` - Experiment design
+
+### Retention
+- `churn-prevention` - Cancel flows, save offers, dunning, payment recovery
 
 ### Growth Engineering
 - `free-tool-strategy` - Marketing tools and calculators
